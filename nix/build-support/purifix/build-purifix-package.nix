@@ -26,7 +26,8 @@ let
   linkFiles = callPackage ./link-files.nix { };
   workspace = package-config.workspace;
   yaml = package-config.config;
-  package-set-config = workspace.package_set or workspace.set;
+  package-set-config = 
+    workspace.packageSet or workspace.package_set or workspace.set;
   extra-packages = (workspace.extra_packages or { }) // (lib.mapAttrs (_: x: x // { isLocal = true; }) localPackages);
   inherit (callPackage ./get-package-set.nix
     { inherit fromYAML purescript-registry purescript-registry-index; }
